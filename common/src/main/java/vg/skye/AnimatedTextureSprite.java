@@ -1,7 +1,9 @@
 package vg.skye;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.samsthenerd.inline.utils.SpriteUVRegion;
 import com.samsthenerd.inline.utils.Spritelike;
 import com.samsthenerd.inline.utils.TextureSprite;
 import net.minecraft.resources.ResourceLocation;
@@ -85,13 +87,8 @@ public class AnimatedTextureSprite extends Spritelike {
     }
 
     @Override
-    public int getSpriteWidth() {
-        return textWidth;
-    }
-
-    @Override
-    public int getSpriteHeight() {
-        return frameHeight;
+    public SpriteUVRegion getUVs(long time) {
+        return new SpriteUVRegion(getMinU(), getMinV(), getMaxU(), getMaxV());
     }
 
     public List<Integer> getDelays() {
@@ -100,7 +97,7 @@ public class AnimatedTextureSprite extends Spritelike {
 
     public static class AnimatedTextureSpriteType implements SpritelikeType{
         public static final TextureSprite.TextureSpriteType INSTANCE = new TextureSprite.TextureSpriteType();
-        private static final Codec<AnimatedTextureSprite> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        private static final MapCodec<AnimatedTextureSprite> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
                 ResourceLocation.CODEC.fieldOf("id").forGetter(AnimatedTextureSprite::getTextureId),
                 Codec.INT.optionalFieldOf("textWidth", 16).forGetter(AnimatedTextureSprite::getTextureWidth),
                 Codec.INT.optionalFieldOf("textHeight", 16).forGetter(AnimatedTextureSprite::getTextureHeight),
@@ -108,7 +105,7 @@ public class AnimatedTextureSprite extends Spritelike {
                 Codec.list(Codec.INT).optionalFieldOf("delays", List.of()).forGetter(AnimatedTextureSprite::getDelays)
         ).apply(instance, AnimatedTextureSprite::new));
 
-        public Codec<AnimatedTextureSprite> getCodec(){
+        public MapCodec<? extends Spritelike> getCodec(){
             return CODEC;
         }
 

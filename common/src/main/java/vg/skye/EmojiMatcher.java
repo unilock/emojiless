@@ -14,14 +14,14 @@ public class EmojiMatcher implements ContinuousMatcher {
     public static final ContinuousMatcher STANDARD = new RegexMatcher.Standard(
             "emoji",
             "[a-z0-9_.-]+",
-            new ResourceLocation("emojiless", "emoji_standard"),
+            ResourceLocation.fromNamespaceAndPath(Emojiless.MOD_ID, "emoji_standard"),
             name -> {
                 var emoji = EmojilessClient.emojis.get(name);
                 if (emoji == null)
                     return null;
                 return new InlineMatch.DataMatch(new SpriteInlineData(emoji), Style.EMPTY);
             },
-            MatcherInfo.fromId(new ResourceLocation("emojiless", "emoji_standard"))
+            MatcherInfo.fromId(ResourceLocation.fromNamespaceAndPath(Emojiless.MOD_ID, "emoji_standard"))
     );
 
     private static final Pattern REGEX = Pattern.compile(":([a-z0-9_.-]+):");
@@ -45,11 +45,11 @@ public class EmojiMatcher implements ContinuousMatcher {
 
     @Override
     public MatcherInfo getInfo() {
-        return MatcherInfo.fromId(new ResourceLocation("emojiless", "emoji"));
+        return MatcherInfo.fromId(ResourceLocation.fromNamespaceAndPath(Emojiless.MOD_ID, "emoji"));
     }
 
     @Override
     public ResourceLocation getId() {
-        return new ResourceLocation("emojiless", "emoji");
+        return ResourceLocation.fromNamespaceAndPath(Emojiless.MOD_ID, "emoji");
     }
 }

@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
+import vg.skye.Emojiless;
 import vg.skye.EmojilessClient;
 
 public final class EmojilessFabricClient implements ClientModInitializer {
@@ -22,7 +23,7 @@ public final class EmojilessFabricClient implements ClientModInitializer {
 
             @Override
             public ResourceLocation getFabricId() {
-                return new ResourceLocation("emojiless", "emoji");
+                return ResourceLocation.fromNamespaceAndPath(Emojiless.MOD_ID, "emoji");
             }
         });
     }

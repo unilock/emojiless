@@ -86,7 +86,7 @@ public final class EmojilessClient {
                 var stream = entry.getValue().open();
                 var img = NativeImage.read(stream);
                 var tex = new DynamicTexture(img);
-                var loc = new ResourceLocation("emojiless", "emoji_textures/" + entry.getKey().getNamespace() + "/" + entry.getKey().getPath());
+                var loc = ResourceLocation.fromNamespaceAndPath(Emojiless.MOD_ID, "emoji_textures/" + entry.getKey().getNamespace() + "/" + entry.getKey().getPath());
                 emojis.put(filename, new TextureSprite(loc, 0, 0, 1, 1, img.getWidth(), img.getHeight()));
                 Minecraft.getInstance().execute(() -> {
                     Minecraft.getInstance().getTextureManager().register(loc, tex);
@@ -102,7 +102,7 @@ public final class EmojilessClient {
                 var stream = entry.getValue().open();
                 var buf = TextureUtil.readResource(stream);
                 buf.rewind();
-                var loc = new ResourceLocation("emojiless", "emoji_textures/" + entry.getKey().getNamespace() + "/" + entry.getKey().getPath());
+                var loc = ResourceLocation.fromNamespaceAndPath(Emojiless.MOD_ID, "emoji_textures/" + entry.getKey().getNamespace() + "/" + entry.getKey().getPath());
                 var img = readGif(loc, buf);
                 emojis.put(filename, img);
             } catch (Exception e) {

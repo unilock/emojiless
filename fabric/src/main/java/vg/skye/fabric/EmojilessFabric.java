@@ -1,7 +1,6 @@
 package vg.skye.fabric;
 
 import net.fabricmc.api.ModInitializer;
-
 import vg.skye.Emojiless;
 
 public final class EmojilessFabric implements ModInitializer {

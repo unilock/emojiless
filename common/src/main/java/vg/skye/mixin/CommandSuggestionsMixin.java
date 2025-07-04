@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vg.skye.EmojiMatcher;
 import vg.skye.EmojiSuggestion;
+import vg.skye.Emojiless;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -27,7 +28,7 @@ public abstract class CommandSuggestionsMixin {
 
     @Inject(method = "updateCommandInfo", at = @At(value = "INVOKE", target = "Lnet/minecraft/commands/SharedSuggestionProvider;suggest(Ljava/lang/Iterable;Lcom/mojang/brigadier/suggestion/SuggestionsBuilder;)Ljava/util/concurrent/CompletableFuture;", shift = At.Shift.AFTER))
     private void inject(CallbackInfo ci) {
-        if (!InlineClientAPI.INSTANCE.getConfig().isMatcherEnabled(new ResourceLocation("emojiless", "emoji")))
+        if (!InlineClientAPI.INSTANCE.getConfig().isMatcherEnabled(ResourceLocation.fromNamespaceAndPath(Emojiless.MOD_ID, "emoji")))
             return;
         String text = this.input.getValue();
         int cursor = this.input.getCursorPosition();
